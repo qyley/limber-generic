@@ -1,37 +1,17 @@
-# generic
+# 🧬Limber Generic
 
-#### 介绍
-Generic FPGA modules for Limber platform
+Limber generic 包含SoC设计中的通用模块，工程主要包含3部分：
 
-#### 软件架构
-软件架构说明
+- common_cells
+- general_old
+- generic
 
+## 📌 common_cells
+common_cells是从pulp项目fork过来的代码，写得很好所以拿过来用，文档中也会对common_cells中的各个模块进行解读
 
-#### 安装教程
+## 📌general_old
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+general_old是以往Limber项目中使用的通用模块，设计时参考了蜂鸟e203的通用库，为兼容早期的工程特地保留，不再更新，请勿修改
 
-#### 使用说明
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
-
-
-#### 特技
-
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+## 📌generic
+最新的Limber FPGA通用模块，~~抄袭~~借鉴了pulp/common_cells的优秀设计
