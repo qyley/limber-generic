@@ -46,9 +46,9 @@
 /// signal is usually less as than `DataWidth`.
 module rr_arb_tree #(
   /// Number of inputs to be arbitrated.
-  parameter int unsigned NumIn      = 64,
+  parameter int unsigned NumIn      = 16,
   /// Data width of the payload in bits. Not needed if `DataType` is overwritten.
-  parameter int unsigned DataWidth  = 32,
+  parameter int unsigned DataWidth  = 1,
   /// Data type of the payload, can be overwritten with custom type. Only use of `DataWidth`.
   parameter type         DataType   = logic [DataWidth-1:0],
   /// The `ExtPrio` option allows to override the internal round robin counter via the
@@ -71,7 +71,7 @@ module rr_arb_tree #(
   /// able to grant the request in the same cycle.
   ///
   /// Set to `1'b1` to enable.
-  parameter bit          LockIn     = 1'b0,
+  parameter bit          LockIn     = 1'b1,
   /// When set, ensures that throughput gets distributed evenly between all inputs.
   ///
   /// Set to `1'b0` to disable.
@@ -113,7 +113,7 @@ module rr_arb_tree #(
   `ifndef VERILATOR
   `ifndef XSIM
   // Default SVA reset
-  default disable iff (!rst_ni || flush_i);
+  // default disable iff (!rst_ni || flush_i);
   `endif
   `endif
   // pragma translate_on
