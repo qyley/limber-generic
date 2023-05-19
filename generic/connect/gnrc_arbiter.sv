@@ -40,7 +40,7 @@ module gnrc_arbiter#(
     2. After a grant, move the pointer to the requester after the one which just received the grant.
       This method only cares which request is granted, so depth is 1. </br>
     3. After a grant, move the pointer to the first Active requester after the one which just received the grant.
-      This method cares which request is granted and the next valid request, so depth is 2. </br>
+      This method cares which request is granted and **look ahead** the next valid request, so depth is 2. </br>
     Change `DEPTH` to set the updating method. @range: "{0,1,2}"
     */
     parameter int          DEPTH   = 1,
@@ -112,7 +112,9 @@ module gnrc_arbiter#(
                 if (flush_i) begin
                     lock_q <= '0;
                 end else begin
-                    lock_q <= lock_d;
+                    if(gnt_i && req_o) begin
+                        lock_q <= lock_d;
+                    end
                 end
             end
         end
@@ -162,9 +164,13 @@ module gnrc_arbiter#(
 
         assign gnt_nodes[0] = gnt_i;
         
-        if(DEPTH==0)begin // fair-less arbiter tree (depth:0)
-            // rr_q holds the highest priority
-            assign rr_d = ~rr_q[N-1] ? -2 : {rr_q[N-2:0],1'b0};
+        if(EXT_RR||DEPTH==0)begin // fair-less arbiter tree (depth:0)
+
+            if(DEPTH==0) begin
+                // rr_q holds the highest priority
+                assign rr_d = ~rr_q[N-1] ? -2 : {rr_q[N-2:0],1'b0};
+            end
+
             for (genvar level = 0; unsigned'(level) < NumLevels; level++) begin : gen_levels
                 for (genvar l = 0; l < 2**level; l++) begin : gen_level
                     // local select signal

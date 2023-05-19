@@ -36,7 +36,7 @@ module gnrc_slice#(
     input logic         clk_i,
     /* Asynchronous reset, active low. */
     input logic         rst_ni,
-    /* Clears the registed data in slice. makes **NO** effect on combinational path */
+    /* Clears the registered data in slice. makes **NO** effect on combinational path */
     input logic         flush_i,
     /* Input source is valid. */
     input logic         valid_i,

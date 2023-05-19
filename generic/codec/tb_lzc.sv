@@ -33,6 +33,56 @@ module tb_lzc();
 
     gnrc_therm2bin #(.N(N-1)) inst_gnrc_therm2bin (.therm_i(therm_o[N-2:0]), .bin_o(bin_o3));
 
+    logic [7:0] addr_i;
+
+    localparam logic[1:0][7:0] RULE_MAP = {
+        8'd200,
+        8'd100
+    };
+
+    localparam logic[1:0][7:0] RULE_MAP_NAPOT = {
+        8'b1001_1111, // 1000_0000~1011_1111
+        8'b0011_1111  // 0000_0000~0111_1111
+
+    };
+    
+
+    gnrc_addr_decode #(
+        .AW(8),
+        .NR(2),
+        .NAPOT(1),
+        .MAP(RULE_MAP_NAPOT)
+    ) inst_gnrc_addr_decode (
+        .addr_i             (addr_i),
+        .map_idx_o          (),
+        .map_out_of_range_o ()
+    );
+
+
+    initial begin
+        addr_i = 0;
+        #10;
+        addr_i = 99;
+        #10;
+        addr_i = 100;
+        #10;
+        addr_i = 101;
+        #10;
+        addr_i = 127;
+        #10;
+        addr_i = 128;
+        #10;
+        addr_i = 129;
+        #10;
+        addr_i = 199;
+        #10;
+        addr_i = 200;
+        #10;
+        addr_i = 201;
+        #10;
+        addr_i = -1;
+        #10;
+    end
 
 
     initial begin
